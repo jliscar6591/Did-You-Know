@@ -1,6 +1,34 @@
+body {
+	background-image: url("http://www.leitrimobserver.ie/resizer/-1/-1/true/1482322900171.jpg--.jpg?1482322903000");
+	background-repeat: repeat-y;
+}
+
 .display {
 	border: solid;
 }
 .recents {
 	border:solid;
+}
+
+h1 {
+	text-align: center;
+	font-size: 40px;
+	color: red;
+	font-family: "Comic Sans", "times new roman", "times" , "serif";
+	padding: 25px;
+}
+
+#recentsDiv{
+	text-align: center;
+}
+
+#searchForm {
+	text-align: center;
+	font-size:25px;
+	font-color: white;
+	padding-bottom:20px;
+}
+
+#populateDiv {
+	text-align: center;
 }
