@@ -1,5 +1,5 @@
 body {
-	background-image: url("http://www.leitrimobserver.ie/resizer/-1/-1/true/1482322900171.jpg--.jpg?1482322903000");
+	background-image: url("images/absurdidad.png");
 	background-repeat: repeat-y;
 }
 
@@ -19,10 +19,12 @@ body {
 h1 {
 	text-align: center;
 	font-size: 40px;
-	color: white;
+	color: black;
 	font-family: "Comic Sans", "times new roman", "times" , "serif";
 	padding: 25px;
 }
+
+
 
 #recentsDiv{
 	text-align: center;

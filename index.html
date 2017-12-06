@@ -3,6 +3,7 @@
 <head>
 	<title>DYK</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -12,24 +13,32 @@
 	<div class='container'>
         <div class='row'>
         	<div class='col-md-12' id="searchForm">
-                <form id='movie-form'>
-                    <label for='newMovieInput' id="searchMovTxt">Search a movie...</label>
-                    <input type='text' id='newMovieInput'>
+                <!-- <div class='form-group'> -->
+                    <!-- <label for='newMovieInput'>Search a movie...</label>
+                    <input type='text' id='newMovieInput' placeholder="Search a movie">
                     <br>
-                    <input id='addMovie' type='submit' value='Start Laughing!'>
-                </form>
+                    <input id='addMovie' type='submit' value='Start Laughing!'> -->
+
+                <div class="form-group has-error">
+                    <label class="control-label" for="inputError"></label>
+                    <input type="text" class="form-control" placeholder="Search a movie" id="inputError">
+                </div>
+               <!--  </div> -->
             </div>
         </div>
         <div class='row'>
-            <div class='col-md-12' id="recentsDiv">Recent searches will populate here...
+            <div class="col-md-12">
+                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
         <div class='row'>
-            <div class='col-md-9' id="populateDiv">
-               	<div class='display'>Videos will populate here....
-               		<img src="images/cat.jpeg">
-				</div>
-            </div>
+            	<div class='col-md-3 recents' id="recentsDiv">Recent searches wil populate here...
+        		</div>
+            	<div class='col-md-9' id="populateDiv">
+                	<div class='display'>Videos will populate here....
+                		<img src="images/cat.jpeg">
+					</div>
+            	</div>
         </div>
     </div>
  <!-- jQuery JS -->
