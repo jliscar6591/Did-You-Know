@@ -3,7 +3,7 @@
 <head>
 	<title>DYK</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <h1>
@@ -11,14 +11,16 @@
 </h1>
 	<div class='container'>
         <div class='row'>
-        	<div class='col-md-12' id="searchForm">
-                <form id='movie-form'>
+            <div class='col-md-3'></div>
+        	<div class='col-md-6' id="searchForm">
+                <form class='form-group'>
                     <label for='newMovieInput' id="searchMovTxt">Search a movie...</label>
                     <input type='text' id='newMovieInput'>
                     <br>
-                    <input id='addMovie' type='submit' value='Start Laughing!'>
+                    <input id='run-search' type='submit' value='Start Laughing!'>
                 </form>
             </div>
+            <div class='col-md-3'>
         </div>
         <div class='row'>
             <div class='col-md-12' id="recentsDiv">Recent searches will populate here...
@@ -26,16 +28,20 @@
         </div>
         <div class='row'>
             <div class='col-md-9' id="populateDiv">
-               	<div class='display'>Videos will populate here....
+               	<div id='display'>Videos will populate here....
                		<img src="images/cat.jpeg">
 				</div>
             </div>
         </div>
     </div>
  <!-- jQuery JS -->
-  <script src="https://code.jquery.com/jquery.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 
   <!-- Code to the JavaScript File -->
-  <script src="javascript/script.js"></script>
+  <script src="./javascript/script.js"></script>
+
 </body>
 </html>
