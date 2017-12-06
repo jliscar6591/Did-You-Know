@@ -3,7 +3,7 @@
 <head>
 	<title>DYK</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <h1>
@@ -11,14 +11,27 @@
 </h1>
 	<div class='container'>
         <div class='row'>
-        	<div class='col-md-12' id="searchForm">
-                <form id='movie-form'>
+            <div class='col-md-2'></div>
+        	<div class='col-md-4' id="searchForm">
+                <form class='form-group'>
                     <label for='newMovieInput' id="searchMovTxt">Search a movie...</label>
                     <input type='text' id='newMovieInput'>
                     <br>
-                    <input id='addMovie' type='submit' value='Start Laughing!'>
+                    <input id='run-search' type='submit' value='Start Laughing!'>
                 </form>
             </div>
+            <div class='col-md-3'>
+                <!-- Here we capture the number of records that the user wants to retrieve  -->
+              <div class="form-group">
+                <label id="num-select" for="pwd">Number of Bloopers to Retrieve:</label>
+                        <select class="form-control" id="num-records-select">
+                            <option value="1">1</option>
+                            <!-- Setting the option for 2 as default -->
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                        </select>
+              </div>
+              <div class='col-md-1'></div>
         </div>
         <div class='row'>
             <div class='col-md-12' id="recentsDiv">Recent searches will populate here...
@@ -33,9 +46,13 @@
         </div>
     </div>
  <!-- jQuery JS -->
-  <script src="https://code.jquery.com/jquery.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 
   <!-- Code to the JavaScript File -->
-  <script src="javascript/script.js"></script>
+  <script src="./javascript/script.js"></script>
+  <!--<script src="https://apis.google.com/js/client.js?onload=youtubeQuery"></script>-->
 </body>
 </html>
