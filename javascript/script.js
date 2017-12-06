@@ -1,5 +1,4 @@
-// fixes titles of videos
-function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
 
 //runs the query though omdb
 function runQuery(queryURL) {
@@ -14,42 +13,29 @@ function runQuery(queryURL) {
 }
 
 //runs the query for youtube
-function youtubeQuery(request){
+function search(){
+	//clear results
+	$('#display').html('');
 
-       // prepare the request
-       var request = gapi.client.youtube.search.list({
-            part: "snippet",
-            type: "video",
-            q: encodeURIComponent($("#newMovieInput").val()).replace(/%20/g, "+"),
-            maxResults: 3,
-            order: "viewCount",
-            publishedAfter: "2015-01-01T00:00:00Z"
-       }); 
-       // execute the request
-       request.execute(function(response) {
-          var results = response.result;
-          $(".display").html("");
-          $.each(results.items, function(index, item) {
-            $.get("./tpl/item.html", function(data) {
-                $(".display").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
-   
-            });
-          });
-          resetVideoHeight();
-       });
-    $(window).on("resize", resetVideoHeight);
-    };
+	//get form input
+	q = $('newMovieInput').val();
 
-function resetVideoHeight() {
-    $(".video").css("height", $("#results").width() * 9/16);
-}
+	//run GET request on API
+	$.get(
+		"https://www.googleapis.com/youtube/v3/search",{
+			part: 'snippet, id',
+			q: q,
+			type: 'video',
+			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
+			function(data){
+				var nextPageToken = data.nextPageToken;
+				var prevPageToken = data.prevPageToken;
 
-function init() {
-    gapi.client.setApiKey("AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo");
-    gapi.client.load("youtube", "v3", function() {
-    	youtubeQuery();
-        // yt api is ready
-    });
+				console.log(data);
+
+			}
+
+	);
 }
 
 // METHODS
@@ -74,7 +60,7 @@ $("#run-search").on("click", function(event) {
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
-	youtubeQuery();
+	search();
 });
 
 //$(document).on("click", "#run-search", youtubeQuery);
