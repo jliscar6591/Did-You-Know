@@ -8,6 +8,33 @@ function runQuery(queryURL) {
 		method: 'GET'
 	}).done(function(response){
 		console.log(response);
+		//clear facts
+		$('#displayfacts').html('');
+
+		// Creating a div to hold the facts
+          var factsDiv = $("<div class='col-md-12 facts'>");
+
+          // Storing the rating data
+          var boxOffice = response.BoxOffice;
+
+          // Creating an element to have the box office displayed
+          var pOne = $("<p>").text("Box Office: " + boxOffice);
+
+          // Displaying the box office
+          factsDiv.append(pOne);
+
+          // Storing the awrds
+          var awards = response.Awards;
+
+          // Creating an element to hold the awards
+          var pTwo = $("<p>").text("Awards: " + awards);
+
+          // Displaying the release year
+          factsDiv.append(pTwo);
+
+          // Putting the entire facts above the previous movies
+          $("#displayfacts").append(factsDiv);
+
 	});
 
 }
@@ -18,7 +45,7 @@ function search(){
 	$('#display').html('');
 
 	//get form input
-	q = $('newMovieInput').val();
+	q = $('#newMovieInput').val();
 
 	//run GET request on API
 	$.get(
@@ -31,11 +58,68 @@ function search(){
 				var nextPageToken = data.nextPageToken;
 				var prevPageToken = data.prevPageToken;
 
+				//log data
 				console.log(data);
+
+				$.each(data.items, function(i, item){
+					//Get output
+					var output = getOutput(item);
+
+
+					//Display results
+					$('#display').append(output);
+
+				});
+
+				var buttons = getButtons(prevPageToken, nextPageToken);
+
+				//display buttons
+				$('#display').append(buttons);
 
 			}
 
-	);
+	);	//Build Output
+	function getOutput(item){
+		var videoId = item.id.videoId;
+		var title = item.snippet.title;
+		var description = item.snippet.description;
+		var thumb = item.snippet.thumbnails.high.url;
+		var channelTitle = item.snippet.channelTitle;
+		var videoDate = item.snippet.publishedAt;
+
+		//Build output string
+		var output = '<li>' +
+		'<div class = "list-left">' +
+		'<img src="'+thumb+'">' +
+		'</div>' +
+		'<div class="list-right">' +
+		'<h3>'+title+'</h3>'+
+		'<small>By <span class="cTitle">'+channelTitle+'</span on '+videoDate+'</small>' +
+		'<p>'+description+'</p>'+
+		'</div>'+
+		'</li>' +
+		'<div class="clearfix"></div>'+
+		'';
+
+		return output;
+}
+
+// Build the buttons
+function getButtons(prevPageToken, nextPageToken){
+	if(!prevPageToken){
+		var btnoutput = '<div class="button-container">'+
+						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'onclick="nextPage();">Next Page</button></div>';	
+	} else {
+		var btnoutput = '<div class="button-container">'+
+						'<button id="prev-button" class"paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
+						'onclick="prevPage();">Prev Page</button></div>'+
+						'<div class="button-container">'+
+						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'onclick="nextPage();">Next Page</button></div>';
+					}
+		return btnoutput;
+	}
 }
 
 // METHODS
@@ -54,13 +138,10 @@ $("#run-search").on("click", function(event) {
 
 	var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
 
-	//Number of results the user would like displayed
-	//numResults = $("#num-records-select").val();
-
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
 	search();
 });
 
-//$(document).on("click", "#run-search", youtubeQuery);
+

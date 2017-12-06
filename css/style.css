@@ -3,16 +3,9 @@ body {
 	background-repeat: repeat-y;
 }
 
-.display {
+#display {
 	border: solid;
 	border-color: blue;
-	font-size: 25px;
-	color: white;
-}
-.recents {
-	border:solid;
-	border-color: blue;
-	font-size:25px;
 	color: white;
 }
 
@@ -26,11 +19,15 @@ h1 {
 
 #recentsDiv{
 	text-align: center;
+	border:solid;
+	border-color: blue;
+	font-size:25px;
+	color: white;
 }
 
 #searchForm {
 	text-align: center;
-	padding-bottom:20px;
+	padding-bottom:10px;
 }
 #searchMovTxt {
 	font-size: 25px;
@@ -42,4 +39,64 @@ h1 {
 }
 #num-select {
 	color:white;
+}
+#factsDiv {
+	text-align: center;
+}
+#displayfacts {
+	font-size: 25px;
+	color: white;
+}
+.facts{
+	border: solid;
+	border-color: blue;
+	font-size: 25px;
+	color: white;
+	background-image: url("../images/display-li-bg-image.jpg");
+}
+
+#display li{
+	padding: 10px 0;
+	border-bottom: 1px #ccc dotted;
+	list-style:none;
+	overflow: auto;
+	background-image: url("../images/display-li-bg-image.jpg");
+}
+
+.list-left{
+	float:left;
+	width:20%;
+}
+
+.list-left img{
+	width:100%;
+	padding:3px;
+	border:solid #ccc 1px;
+}
+
+.list-right{
+	float:right;
+	width:78%;
+}
+
+.cTitle{
+	color:#dd2826;
+}
+.button-container{
+	margin-top:10px;
+}
+
+.paging-button{
+	background:#f4f4f4;
+	padding:8px 13px;
+	border:#ccc 1px solid;
+	border-radius:5px;
+	margin:10px;
+	cursor:pointer;
+}
+#prev-button{
+	color:black;
+}
+#next-button{
+	color:black;
 }
