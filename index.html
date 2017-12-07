@@ -3,19 +3,21 @@
 <head>
 	<title>DYK</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/jquery.fancybox.css">
+
 </head>
 <body>
 <h1>
-    D.Y.K Movie Facts and Bloopers!!
+    D.Y.K. Movie Facts and Bloopers!!
 </h1>
 	<div class='container'>
         <div class='row'>
             <div class='col-md-3'></div>
         	<div class='col-md-6' id="searchForm">
                 <form class='form-group'>
-                    <label for='newMovieInput' id="searchMovTxt">Search a movie...</label>
-                    <input type='text' id='newMovieInput'>
+                    <label for='newMovieInput' id="searchMovTxt"></label>
+                    <input type='text' id='newMovieInput' placeholder="Search for a movie's bloopers...">
                     <br>
                     <input id='run-search' type='submit' value='Start Laughing!'>
                 </form>
@@ -23,28 +25,36 @@
             <div class='col-md-3'>
         </div>
         <div class='row'>
-            <div class='col-md-12' id="recentsDiv">Recent searches will populate here...
+            <div class='col-md-12' id="recentsDiv">
             </div>
         </div>
         <div class='row'>
             <div class='col-md-9' id="populateDiv">
-               	<div id='display'>
+               	<ul id='display'>
                		<img src="images/cat.jpeg">
-				</div>
+				</ul>
             </div>
-            <div class='col-md-3' id="factsDiv">
-                <div id='displayfacts'>Facts will be displayed here...
-                </div>
+            <div class='col-md-3' id="displayfacts">Facts will be diplayed here...</div>
         </div>
     </div>
- <!-- jQuery JS -->
+
+<!-- add a footer--> 
+ <footer>
+    <h2> Copyright 2017, All Rights Reserved </h2>
+</footer>
+
+<!-- jQuery JS -->
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 
-  <!-- Code to the JavaScript File -->
-  <script src="./javascript/script.js"></script>
-
+<script src="./javascript/script.js"></script>
+<script src="./javascript/jquery.fancybox.pack.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".fancybox").fancybox();
+    });
+</script>
 </body>
 </html>
