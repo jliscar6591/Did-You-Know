@@ -1,5 +1,4 @@
 
-
 //runs the query though omdb
 function runQuery(queryURL) {
 	
@@ -13,6 +12,12 @@ function runQuery(queryURL) {
 
 		// Creating a div to hold the facts
           var factsDiv = $("<div class='col-md-12 facts'>");
+
+          var DYK = $("<p>").text("Did You Know??");
+
+          DYK.attr("id", DYK);
+
+          factsDiv.append(DYK);
 
           // Storing the rating data
           var boxOffice = response.BoxOffice;
@@ -43,6 +48,7 @@ function runQuery(queryURL) {
 function search(){
 	//clear results
 	$('#display').html('');
+	$('#buttons').html('');
 
 	//get form input
 	q = $('#newMovieInput').val();
@@ -157,14 +163,14 @@ function prevPage() {
 					//Display results
 					$('#display').append(output);
 
-				});
+				})
 
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
 				//display buttons
 				$('#display').append(buttons);
 			}
-		);
+	);
 }
 	
 //Build Output
@@ -198,14 +204,14 @@ function getOutput(item){
 function getButtons(prevPageToken, nextPageToken){
 	if(!prevPageToken){
 		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
 						'onclick="nextPage();">Next Page</button></div>';	
 	} else {
 		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class"paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
 						'onclick="prevPage();">Prev Page</button></div>'+
 						'<div class="button-container">'+
-						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
 						'onclick="nextPage();">Next Page</button></div>';
 					}
 	return btnoutput;
@@ -213,6 +219,9 @@ function getButtons(prevPageToken, nextPageToken){
 
 // METHODS
 // ==========================================================
+
+//create an initial recent count variable
+var recentCount = 0;
 
 // on.("click") function associated with the Search Button	
 $("#run-search").on("click", function(event) {
@@ -227,10 +236,39 @@ $("#run-search").on("click", function(event) {
 
 	var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
 
+	// create div to hold the text and clear button
+	var recentSearch = $('<div class="col-md-2"></div>');
+
+	recentSearch.attr("id", "recent-" + recentCount);
+	recentSearch.append("" + searchTerm);
+
+	var recentClose = $("<button>");
+
+	recentClose.attr("recent-search", recentCount);
+	recentClose.addClass("checkbox");
+	recentClose.append("X");
+
+	// Append the button to the recent search
+	recentSearch = recentSearch.prepend(recentClose);
+
+	// Add the button and recent search to the recent div
+	$('#recentsDiv').append(recentSearch);
+
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
 	search();
+
+	// Clear the textbox when done
+	$('#newMovieInput').val("");
+
+	recentCount++;
+	
 });
 
+$(document.body).on("click", ".checkbox", function(){
 
+	var recentNumber = $(this).attr("recent-search");
+
+	$("#recent-" + recentNumber).remove();
+});
