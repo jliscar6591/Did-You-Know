@@ -9,6 +9,7 @@ function runQuery(queryURL) {
 		console.log(response);
 		//clear facts
 		$('#displayfacts').html('');
+		$('#buttons-bar').html('');
 
 		// Creating a div to hold the facts
           var factsDiv = $("<div class='col-md-12 facts'>");
@@ -48,7 +49,7 @@ function runQuery(queryURL) {
 function search(){
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
+	$('#buttons-bar').html('');
 
 	//get form input
 	q = $('#newMovieInput').val();
@@ -57,7 +58,7 @@ function search(){
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			q: q + "movie bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
@@ -80,19 +81,19 @@ function search(){
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
 				//display buttons
-				$('#display').append(buttons);
+				$('#buttons-bar').append(buttons);
 			}
-		);
-}
+	);
+};
 
 //Next page function
 function nextPage() {
 	var token = $('#next-button').data('token');
-	var q = $('#next-button').data('query');
+	var query = $('#next-button').data('query');
 
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
+	$('#buttons-bar').html('');
 
 	//get form input
 	q = $('#newMovieInput').val();
@@ -101,7 +102,7 @@ function nextPage() {
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			q: q + "movie bloopers",
 			pageToken: token,
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
@@ -124,19 +125,19 @@ function nextPage() {
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
 				//display buttons
-				$('#display').append(buttons);
+				$('#buttons-bar').append(buttons);
 			}
 		);
-}
+};
 
 //Prev page function
 function prevPage() {
 	var token = $('#prev-button').data('token');
-	var q = $('#prev-button').data('query');
+	var query = $('#prev-button').data('query');
 
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
+	$('#buttons-bar').html('');
 
 	//get form input
 	q = $('#newMovieInput').val();
@@ -145,7 +146,7 @@ function prevPage() {
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			q: q + "movie bloopers",
 			pageToken: token,
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
@@ -157,6 +158,7 @@ function prevPage() {
 				console.log(data);
 
 				$.each(data.items, function(i, item){
+
 					//Get output
 					var output = getOutput(item);
 
@@ -168,10 +170,10 @@ function prevPage() {
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
 				//display buttons
-				$('#display').append(buttons);
+				$('#buttons-bar').append(buttons);
 			}
 	);
-}
+};
 	
 //Build Output
 function getOutput(item){
@@ -197,25 +199,25 @@ function getOutput(item){
 	'';
 
 	return output;
-}
+};
 
 
 // Build the buttons
 function getButtons(prevPageToken, nextPageToken){
 	if(!prevPageToken){
 		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query"'+q+'"'+
 						'onclick="nextPage();">Next Page</button></div>';	
 	} else {
 		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query"'+q+'"'+
 						'onclick="prevPage();">Prev Page</button></div>'+
 						'<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query"'+q+'"'+
 						'onclick="nextPage();">Next Page</button></div>';
 					}
 	return btnoutput;
-}
+};
 
 // METHODS
 // ==========================================================
