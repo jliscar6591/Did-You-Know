@@ -89,14 +89,11 @@ function search(){
 //Next page function
 function nextPage() {
 	var token = $('#next-button').data('token');
-	var query = $('#next-button').data('query');
+	var q = $('#next-button').data('query');
 
 	//clear results
 	$('#display').html('');
 	$('#buttons-bar').html('');
-
-	//get form input
-	q = $('#newMovieInput').val();
 
 	//run GET request on API
 	$.get(
@@ -133,14 +130,11 @@ function nextPage() {
 //Prev page function
 function prevPage() {
 	var token = $('#prev-button').data('token');
-	var query = $('#prev-button').data('query');
+	var q = $('#prev-button').data('query');
 
 	//clear results
 	$('#display').html('');
 	$('#buttons-bar').html('');
-
-	//get form input
-	q = $('#newMovieInput').val();
 
 	//run GET request on API
 	$.get(
@@ -206,15 +200,11 @@ function getOutput(item){
 function getButtons(prevPageToken, nextPageToken){
 	if(!prevPageToken){
 		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query"'+q+'"'+
-						'onclick="nextPage();">Next Page</button></div>';	
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';	
 	} else {
 		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query"'+q+'"'+
-						'onclick="prevPage();">Prev Page</button></div>'+
-						'<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query"'+q+'"'+
-						'onclick="nextPage();">Next Page</button></div>';
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">Prev Page</button>'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';
 					}
 	return btnoutput;
 };
