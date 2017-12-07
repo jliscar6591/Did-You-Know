@@ -1,5 +1,4 @@
-// fixes titles of videos
-function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
 
 //runs the query though omdb
 function runQuery(queryURL) {
@@ -9,47 +8,118 @@ function runQuery(queryURL) {
 		method: 'GET'
 	}).done(function(response){
 		console.log(response);
+		//clear facts
+		$('#displayfacts').html('');
+
+		// Creating a div to hold the facts
+          var factsDiv = $("<div class='col-md-12 facts'>");
+
+          // Storing the rating data
+          var boxOffice = response.BoxOffice;
+
+          // Creating an element to have the box office displayed
+          var pOne = $("<p>").text("Box Office: " + boxOffice);
+
+          // Displaying the box office
+          factsDiv.append(pOne);
+
+          // Storing the awrds
+          var awards = response.Awards;
+
+          // Creating an element to hold the awards
+          var pTwo = $("<p>").text("Awards: " + awards);
+
+          // Displaying the release year
+          factsDiv.append(pTwo);
+
+          // Putting the entire facts above the previous movies
+          $("#displayfacts").append(factsDiv);
+
 	});
 
 }
 
 //runs the query for youtube
-function youtubeQuery(request){
+function search(){
+	//clear results
+	$('#display').html('');
 
-       // prepare the request
-       var request = gapi.client.youtube.search.list({
-            part: "snippet",
-            type: "video",
-            q: encodeURIComponent($("#newMovieInput").val()).replace(/%20/g, "+"),
-            maxResults: 3,
-            order: "viewCount",
-            publishedAfter: "2015-01-01T00:00:00Z"
-       }); 
-       // execute the request
-       request.execute(function(response) {
-          var results = response.result;
-          $(".display").html("");
-          $.each(results.items, function(index, item) {
-            $.get("./tpl/item.html", function(data) {
-                $(".display").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
-   
-            });
-          });
-          resetVideoHeight();
-       });
-    $(window).on("resize", resetVideoHeight);
-    };
+	//get form input
+	q = $('#newMovieInput').val();
 
-function resetVideoHeight() {
-    $(".video").css("height", $("#results").width() * 9/16);
+	//run GET request on API
+	$.get(
+		"https://www.googleapis.com/youtube/v3/search",{
+			part: 'snippet, id',
+			q: q,
+			type: 'video',
+			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
+			function(data){
+				var nextPageToken = data.nextPageToken;
+				var prevPageToken = data.prevPageToken;
+
+				//log data
+				console.log(data);
+
+				$.each(data.items, function(i, item){
+					//Get output
+					var output = getOutput(item);
+
+
+					//Display results
+					$('#display').append(output);
+
+				});
+
+				var buttons = getButtons(prevPageToken, nextPageToken);
+
+				//display buttons
+				$('#display').append(buttons);
+
+			}
+
+	);	//Build Output
+	function getOutput(item){
+		var videoId = item.id.videoId;
+		var title = item.snippet.title;
+		var description = item.snippet.description;
+		var thumb = item.snippet.thumbnails.high.url;
+		var channelTitle = item.snippet.channelTitle;
+		var videoDate = item.snippet.publishedAt;
+
+		//Build output string
+		var output = '<li>' +
+		'<div class = "list-left">' +
+		'<img src="'+thumb+'">' +
+		'</div>' +
+		'<div class="list-right">' +
+		'<h3>'+title+'</h3>'+
+		'<small>By <span class="cTitle">'+channelTitle+'</span on '+videoDate+'</small>' +
+		'<p>'+description+'</p>'+
+		'</div>'+
+		'</li>' +
+		'<div class="clearfix"></div>'+
+		'';
+
+		return output;
 }
 
-function init() {
-    gapi.client.setApiKey("AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo");
-    gapi.client.load("youtube", "v3", function() {
-    	youtubeQuery();
-        // yt api is ready
-    });
+// Build the buttons
+function getButtons(prevPageToken, nextPageToken){
+	if(!prevPageToken){
+		var btnoutput = '<div class="button-container">'+
+						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'onclick="nextPage();">Next Page</button></div>';	
+	} else {
+		var btnoutput = '<div class="button-container">'+
+						'<button id="prev-button" class"paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
+						'onclick="prevPage();">Prev Page</button></div>'+
+						'<div class="button-container">'+
+						'<button id="next-button" class"paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
+						'onclick="nextPage();">Next Page</button></div>';
+					}
+		return btnoutput;
+	}
 }
 
 // METHODS
@@ -68,13 +138,10 @@ $("#run-search").on("click", function(event) {
 
 	var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
 
-	//Number of results the user would like displayed
-	//numResults = $("#num-records-select").val();
-
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
-	youtubeQuery();
+	search();
 });
 
-//$(document).on("click", "#run-search", youtubeQuery);
+

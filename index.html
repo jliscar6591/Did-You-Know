@@ -11,8 +11,8 @@
 </h1>
 	<div class='container'>
         <div class='row'>
-            <div class='col-md-2'></div>
-        	<div class='col-md-4' id="searchForm">
+            <div class='col-md-3'></div>
+        	<div class='col-md-6' id="searchForm">
                 <form class='form-group'>
                     <label for='newMovieInput' id="searchMovTxt">Search a movie...</label>
                     <input type='text' id='newMovieInput'>
@@ -21,17 +21,6 @@
                 </form>
             </div>
             <div class='col-md-3'>
-                <!-- Here we capture the number of records that the user wants to retrieve  -->
-              <div class="form-group">
-                <label id="num-select" for="pwd">Number of Bloopers to Retrieve:</label>
-                        <select class="form-control" id="num-records-select">
-                            <option value="1">1</option>
-                            <!-- Setting the option for 2 as default -->
-                            <option value="2" selected>2</option>
-                            <option value="3">3</option>
-                        </select>
-              </div>
-              <div class='col-md-1'></div>
         </div>
         <div class='row'>
             <div class='col-md-12' id="recentsDiv">Recent searches will populate here...
@@ -39,10 +28,13 @@
         </div>
         <div class='row'>
             <div class='col-md-9' id="populateDiv">
-               	<div class='display'>Videos will populate here....
+               	<div id='display'>
                		<img src="images/cat.jpeg">
 				</div>
             </div>
+            <div class='col-md-3' id="factsDiv">
+                <div id='displayfacts'>Facts will be displayed here...
+                </div>
         </div>
     </div>
  <!-- jQuery JS -->
@@ -53,6 +45,6 @@
 
   <!-- Code to the JavaScript File -->
   <script src="./javascript/script.js"></script>
-  <!--<script src="https://apis.google.com/js/client.js?onload=youtubeQuery"></script>-->
+
 </body>
 </html>
