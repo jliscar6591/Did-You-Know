@@ -57,7 +57,7 @@ function search(){
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			q: q + "movie bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
@@ -238,9 +238,16 @@ $("#run-search").on("click", function(event) {
 
 	// create div to hold the text and clear button
 	var recentSearch = $('<div class="col-md-2"></div>');
+	var recentSearchBtn = $("<button>")
 
 	recentSearch.attr("id", "recent-" + recentCount);
-	recentSearch.append("" + searchTerm);
+	recentSearch.append(recentSearchBtn);
+
+	recentSearchBtn.append(searchTerm);
+	recentSearchBtn.attr("class", "recentSearchBtn")
+	recentSearchBtn.attr("value", searchTerm);
+
+	
 
 	var recentClose = $("<button>");
 
@@ -259,11 +266,15 @@ $("#run-search").on("click", function(event) {
 	runQuery(queryURL);
 	search();
 
+
 	// Clear the textbox when done
 	$('#newMovieInput').val("");
 
 	recentCount++;
-	
+
+
+
+
 });
 
 $(document.body).on("click", ".checkbox", function(){
@@ -272,3 +283,13 @@ $(document.body).on("click", ".checkbox", function(){
 
 	$("#recent-" + recentNumber).remove();
 });
+
+
+	$(document.body).on("click",".recentSearchBtn", function(){
+		var text = $(this).text();
+		$("#newMovieInput").val(text);
+		console.log(text);
+		$(this).remove();
+		$("#recentClose").remove();
+
+		});
