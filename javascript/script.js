@@ -330,10 +330,19 @@ $(document.body).on("click", ".checkbox", function(){
 
 		$("#newMovieInput").val(text);
 
+		// Grabbing text the user typed into the search input
+		var searchTerm = $("#newMovieInput").val().trim();
+		var searchURL = queryURL ;
+
+		var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
+
+		//log the value being re-searched to the console
 		console.log(text);
 
-		var recentNumber = $(this).attr("recent-search")
-
-		$("#recent-" + recentNumber).remove();
+		//run the ajax query from omdb
+		runQuery(queryURL);
+		
+		//run the GET from youtube api
+		search();
 
 		});
