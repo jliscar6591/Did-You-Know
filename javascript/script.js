@@ -64,7 +64,10 @@ function search(){
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
+<<<<<<< HEAD
 			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
+=======
+>>>>>>> 185fcb7309dcfbab9a4e2ac4f0372cd1660de9f0
 			q: q + "movie bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
@@ -259,11 +262,22 @@ $("#run-search").on("click", function(event) {
 
 	// create div to hold the text and clear button
 	var recentSearch = $('<div class="col-md-2"></div>');
+	var recentSearchBtn = $("<button>")
 
 	//give every recent search its own unique id
 	recentSearch.attr("id", "recent-" + recentCount);
+<<<<<<< HEAD
 	//append it to the recentSearch div
 	recentSearch.append("" + searchTerm);
+=======
+	recentSearch.append(recentSearchBtn);
+
+	recentSearchBtn.append(searchTerm);
+	recentSearchBtn.attr("class", "recentSearchBtn")
+	recentSearchBtn.attr("value", searchTerm);
+
+	
+>>>>>>> 185fcb7309dcfbab9a4e2ac4f0372cd1660de9f0
 
 	//create a recentsearch close button
 	var recentClose = $("<button>");
@@ -283,12 +297,16 @@ $("#run-search").on("click", function(event) {
 	runQuery(queryURL);
 	search();
 
+
 	// Clear the textbox when done
 	$('#newMovieInput').val("");
 
 	// add 1 to recent count 
 	recentCount++;
-	
+
+
+
+
 });
 
 // remove the recent search when the close out button is clicked
@@ -298,3 +316,13 @@ $(document.body).on("click", ".checkbox", function(){
 
 	$("#recent-" + recentNumber).remove();
 });
+
+
+	$(document.body).on("click",".recentSearchBtn", function(){
+		var text = $(this).text();
+		$("#newMovieInput").val(text);
+		console.log(text);
+		$(this).remove();
+		$("#recentClose").remove();
+
+		});

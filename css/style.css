@@ -41,6 +41,8 @@ h2 {
 	box-shadow: 0 0 17px rgba(0, 0, 0, 0.2);
 	font-size:25px;
 	color: white;
+	margin-bottom: 20px;
+	background-image: url("../images/display-li-bg-image.jpg");
 }
 
 #searchForm {
@@ -181,3 +183,9 @@ button, optgroup{
 button{
 	color: white;
 }
+
+.recentSearchBtn {
+	color: black;
+	margin:10px;
+}
+
