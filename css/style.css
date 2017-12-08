@@ -1,14 +1,22 @@
 body {
-	background-image: url("http://www.leitrimobserver.ie/resizer/-1/-1/true/1482322900171.jpg--.jpg?1482322903000");
-	background-repeat: repeat-y;
+/*background-image: url("images/Free-Popcorn-Box-Vector-1.jpg")
+background-image: url("https://wallpaperscraft.com/image/popcorn_corn_box_scattering_45338_2560x1600.jpg");*/
+	
+	background-image: url("../images/popcornPatterns.png");
+/*	background-repeat: repeat-y;
+*/
 }
 
+
+/*Display for the movie populating 
 #display {
-	border: solid;
-	border-color: blue;
+	border: solid 1px;
+	box-shadow: 0 0 17px rgba(0, 0, 0, 3.2);
 	color: white;
-	background-image: url("../images/display-li-bg-image.jpg");
-}
+	background-color: white;
+	opacity: 45.5;
+/*	background-image: url("../images/display-li-bg-image.jpg");
+*/
 
 h1 {
 	text-align: center;
@@ -28,8 +36,9 @@ h2 {
 
 #recentsDiv{
 	text-align: center;
-	border:solid;
-	border-color: blue;
+/*	border:solid black 1px;
+*/	
+	box-shadow: 0 0 17px rgba(0, 0, 0, 0.2);
 	font-size:25px;
 	color: white;
 }
@@ -55,12 +64,26 @@ h2 {
 }
 
 #run-search{
-	background:#f4f4f4;
+	background:transparent;
 	padding:8px 13px;
-	border:#ccc 1px solid;
+	border:#fff 3px solid;
 	border-radius:5px;
 	margin:10px;
 	cursor:pointer;
+	color:white;
+}
+
+button, optgroup{
+	color: white;
+}
+
+
+
+#run-search:hover{
+	background: white;
+	color: black;
+	box-shadow: 0 0 17px rgba(0, 0, 0, 2.2);
+ 
 }
 
 .checkbox{
@@ -82,17 +105,18 @@ h2 {
 }
 
 #displayfacts {
-	font-size: 25px;
+	font-size: 20px;
 	color: white;
 }
 
 .facts{
-	border: solid;
-	border-color: blue;
+	border: black solid 1px;
 	font-size: 25px;
 	color: white;
 	background-image: url("../images/display-li-bg-image.jpg");
-}
+	box-shadow: 0 0 17px rgba(0, 0, 0, 0.2);
+/*	background-image: url("../images/display-li-bg-image.jpg");
+*/}
 
 #DYK {
 	text-align:center;
@@ -103,8 +127,9 @@ h2 {
 	border-bottom: 1px #ccc dotted;
 	list-style:none;
 	overflow: auto;
-	background-image: url("../images/display-li-bg-image.jpg");
-}
+	background-color: white;
+/*	background-image: url("../images/display-li-bg-image.jpg");
+*/}
 
 .list-left{
 	float:left;
@@ -151,4 +176,8 @@ h2 {
 	margin:10px;
 	cursor:pointer;
 	color:black;
+}
+
+button{
+	color: white;
 }
