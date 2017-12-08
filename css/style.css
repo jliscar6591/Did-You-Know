@@ -42,7 +42,8 @@ h2 {
 	font-size:25px;
 	color: white;
 	margin-bottom: 20px;
-	background-image: url("../images/display-li-bg-image.jpg");
+	/*background-image: url("../images/coca cola.jpg");
+	*/
 }
 
 #searchForm {
@@ -88,12 +89,6 @@ button, optgroup{
  
 }
 
-.checkbox{
-	float:left;
-	overflow: auto;
-	color: black;
-}
-
 #populateDiv {
 	text-align: center;
 }
@@ -115,23 +110,22 @@ button, optgroup{
 	border: black solid 1px;
 	font-size: 25px;
 	color: white;
-	background-image: url("../images/display-li-bg-image.jpg");
+	background-image: url("../images/coca cola.jpg");
 	box-shadow: 0 0 17px rgba(0, 0, 0, 0.2);
-/*	background-image: url("../images/display-li-bg-image.jpg");
-*/}
+}
 
 #DYK {
 	text-align:center;
 }
 
 #display li{
-	padding: 10px 0;
+	padding: 10px 10px;
 	border-bottom: 1px #ccc dotted;
 	list-style:none;
 	overflow: auto;
-	background-color: white;
-/*	background-image: url("../images/display-li-bg-image.jpg");
-*/}
+	background-image: url("../images/coca cola.jpg");
+	color:white;
+}
 
 .list-left{
 	float:left;
@@ -180,12 +174,28 @@ button, optgroup{
 	color:black;
 }
 
-button{
-	color: white;
-}
-
 .recentSearchBtn {
-	color: black;
-	margin:10px;
+	float:left;
+	overflow: auto;
+	background:#f4f4f4;
+	padding:2px 2px;
+	border:#ccc 1px solid;
+	border-radius:2px;
+	margin:5px;
+	cursor:pointer;
+	color:black;
+	font-size:small;
 }
 
+.checkbox{
+	float:left;
+	overflow: auto;
+	background:#f4f4f4;
+	padding:2px 2px;
+	border:#ccc 1px solid;
+	border-radius:2px;
+	margin:5px;
+	cursor:pointer;
+	color:black;
+	font-size:small;
+}

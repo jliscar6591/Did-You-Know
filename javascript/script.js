@@ -64,10 +64,7 @@ function search(){
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-<<<<<<< HEAD
 			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
-=======
->>>>>>> 185fcb7309dcfbab9a4e2ac4f0372cd1660de9f0
 			q: q + "movie bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
@@ -260,51 +257,60 @@ $("#run-search").on("click", function(event) {
 
 	var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
 
-	// create div to hold the text and clear button
-	var recentSearch = $('<div class="col-md-2"></div>');
-	var recentSearchBtn = $("<button>")
+	// create div to hold the recentSearchBtn and clear button
+	var recentSearch = $('<div"></div>');
 
 	//give every recent search its own unique id
 	recentSearch.attr("id", "recent-" + recentCount);
-<<<<<<< HEAD
-	//append it to the recentSearch div
-	recentSearch.append("" + searchTerm);
-=======
-	recentSearch.append(recentSearchBtn);
 
+	//create the recentSearchBtn
+	var recentSearchBtn = $("<button>")
+
+	//give the recentSearchBtn and attribute called recent-search and set its value equal to recentCount
+	recentSearchBtn.attr("recent-search", recentCount);
+
+	//append the text entered to the button
 	recentSearchBtn.append(searchTerm);
-	recentSearchBtn.attr("class", "recentSearchBtn")
+
+	//give the button a class name for styling
+	recentSearchBtn.addClass("recentSearchBtn");
+
+	//giving the button a value equal to the search entered
 	recentSearchBtn.attr("value", searchTerm);
 
-	
->>>>>>> 185fcb7309dcfbab9a4e2ac4f0372cd1660de9f0
+	//add the button to the div created in recentSearch
+	recentSearch.append(recentSearchBtn);
 
 	//create a recentsearch close button
 	var recentClose = $("<button>");
 
+	//give the recentClose button an attribute named recent-search and set its value to recentCount
 	recentClose.attr("recent-search", recentCount);
+
+	//give it a class of checkbox
 	recentClose.addClass("checkbox");
+
+	//append the x onto the button
 	recentClose.append("X");
 
 	// Append the button to the recent search
-	recentSearch = recentSearch.prepend(recentClose);
+	recentSearch.prepend(recentClose);
 
-	// Add the button and recent search to the recent div
+	// Add the clear button and recentSearchBtn stored insidethe recentSearch div to the recentDiv from the HTML
 	$('#recentsDiv').append(recentSearch);
 
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
-	search();
 
+	//run the search query for youtube api
+	search();
 
 	// Clear the textbox when done
 	$('#newMovieInput').val("");
 
 	// add 1 to recent count 
 	recentCount++;
-
-
 
 
 });
@@ -319,10 +325,15 @@ $(document.body).on("click", ".checkbox", function(){
 
 
 	$(document.body).on("click",".recentSearchBtn", function(){
+
 		var text = $(this).text();
+
 		$("#newMovieInput").val(text);
+
 		console.log(text);
-		$(this).remove();
-		$("#recentClose").remove();
+
+		var recentNumber = $(this).attr("recent-search")
+
+		$("#recent-" + recentNumber).remove();
 
 		});
