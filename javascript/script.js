@@ -229,11 +229,11 @@ function getOutput(item){
 function getButtons(prevPageToken, nextPageToken){
 	if(!prevPageToken){
 		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';	
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';	
 	} else {
 		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">Prev Page</button>'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">&larr; Prev Page</button>'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';
 					}
 	return btnoutput;
 };
@@ -257,30 +257,53 @@ $("#run-search").on("click", function(event) {
 
 	var queryURL = "https://www.omdbapi.com/?t=" + searchTerm + "&y=&plot=short&apikey=trilogy";
 
-	// create div to hold the text and clear button
-	var recentSearch = $('<div class="col-md-2"></div>');
+	// create div to hold the recentSearchBtn and clear button
+	var recentSearch = $('<div"></div>');
 
 	//give every recent search its own unique id
 	recentSearch.attr("id", "recent-" + recentCount);
-	//append it to the recentSearch div
-	recentSearch.append("" + searchTerm);
+
+	//create the recentSearchBtn
+	var recentSearchBtn = $("<button>")
+
+	//give the recentSearchBtn and attribute called recent-search and set its value equal to recentCount
+	recentSearchBtn.attr("recent-search", recentCount);
+
+	//append the text entered to the button
+	recentSearchBtn.append(searchTerm);
+
+	//give the button a class name for styling
+	recentSearchBtn.addClass("recentSearchBtn");
+
+	//giving the button a value equal to the search entered
+	recentSearchBtn.attr("value", searchTerm);
+
+	//add the button to the div created in recentSearch
+	recentSearch.append(recentSearchBtn);
 
 	//create a recentsearch close button
 	var recentClose = $("<button>");
 
+	//give the recentClose button an attribute named recent-search and set its value to recentCount
 	recentClose.attr("recent-search", recentCount);
+
+	//give it a class of checkbox
 	recentClose.addClass("checkbox");
+
+	//append the x onto the button
 	recentClose.append("X");
 
 	// Append the button to the recent search
-	recentSearch = recentSearch.prepend(recentClose);
+	recentSearch.prepend(recentClose);
 
-	// Add the button and recent search to the recent div
+	// Add the clear button and recentSearchBtn stored insidethe recentSearch div to the recentDiv from the HTML
 	$('#recentsDiv').append(recentSearch);
 
 	// Then we will pass the final searchURL and the number of results to
 	// include to the runQuery function
 	runQuery(queryURL);
+
+	//run the search query for youtube api
 	search();
 
 	// Clear the textbox when done
@@ -288,7 +311,8 @@ $("#run-search").on("click", function(event) {
 
 	// add 1 to recent count 
 	recentCount++;
-	
+
+
 });
 
 // remove the recent search when the close out button is clicked
@@ -298,3 +322,18 @@ $(document.body).on("click", ".checkbox", function(){
 
 	$("#recent-" + recentNumber).remove();
 });
+
+
+	$(document.body).on("click",".recentSearchBtn", function(){
+
+		var text = $(this).text();
+
+		$("#newMovieInput").val(text);
+
+		console.log(text);
+
+		var recentNumber = $(this).attr("recent-search")
+
+		$("#recent-" + recentNumber).remove();
+
+		});
