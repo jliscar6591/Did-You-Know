@@ -1,5 +1,5 @@
 
-//runs the query though omdb
+//runs the omdb api query
 function runQuery(queryURL) {
 	
 	$.ajax({
@@ -9,14 +9,19 @@ function runQuery(queryURL) {
 		console.log(response);
 		//clear facts
 		$('#displayfacts').html('');
+		//clear button bar
+		$('#buttons-bar').html('');
 
 		// Creating a div to hold the facts
           var factsDiv = $("<div class='col-md-12 facts'>");
 
+          //storing the text in a variable
           var DYK = $("<p>").text("Did You Know??");
 
+          // giving the p element in id of DYK
           DYK.attr("id", DYK);
 
+          //apend the text to the factsDiv
           factsDiv.append(DYK);
 
           // Storing the rating data
@@ -46,9 +51,11 @@ function runQuery(queryURL) {
 
 //runs the query for youtube
 function search(){
+
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
+	//clear button bar
+	$('#buttons-bar').html('');
 
 	//get form input
 	q = $('#newMovieInput').val();
@@ -57,7 +64,8 @@ function search(){
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
+			q: q + "movie bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
@@ -67,113 +75,130 @@ function search(){
 				//log data
 				console.log(data);
 
+
 				$.each(data.items, function(i, item){
+					
 					//Get output
 					var output = getOutput(item);
 
 
-					//Display results
+					//append the output variable, which is the result of the getOutput function, to the display div
 					$('#display').append(output);
 
 				});
 
+				//get the result of the getButtons function and set it to the variable buttons
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
-				//display buttons
-				$('#display').append(buttons);
+				//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
+				$('#buttons-bar').append(buttons);
 			}
-		);
-}
+	);
+};
 
 //Next page function
 function nextPage() {
+
+	// giving the next-button the data-token attribute and setting it the variable token so it can be inserted into the query
 	var token = $('#next-button').data('token');
+	//giving the next-button the data query attribute and setting it the variable q so it can be inserted into the query
 	var q = $('#next-button').data('query');
 
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
+	//clear button-bar
+	$('#buttons-bar').html('');
 
-	//get form input
-	q = $('#newMovieInput').val();
-
-	//run GET request on API
+	//run GET request on youtube API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
+			q: q + "movie bloopers",
+			//insert the pageToken into the query
 			pageToken: token,
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
+				//set the nextPageToken retrieved from youtube to the variable nextPageToken
 				var nextPageToken = data.nextPageToken;
+				//set the prevPageToken retrieved from youtube to the variable prevPageToken
 				var prevPageToken = data.prevPageToken;
 
 				//log data
 				console.log(data);
 
 				$.each(data.items, function(i, item){
+					
 					//Get output
 					var output = getOutput(item);
 
-					//Display results
+					//append the output variable, which is the result of the getOutput function, to the display div
 					$('#display').append(output);
 
 				});
 
+				//get the result of the getButtons function and set it to the variable buttons
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
-				//display buttons
-				$('#display').append(buttons);
+				//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
+				$('#buttons-bar').append(buttons);
 			}
-		);
-}
+	);
+};
 
 //Prev page function
 function prevPage() {
+
+	// giving the next-button the data-token attribute and setting it the variable token so it can be inserted into the query
 	var token = $('#prev-button').data('token');
+	//giving the next-button the data query attribute and setting it the variable q so it can be inserted into the query
 	var q = $('#prev-button').data('query');
 
 	//clear results
 	$('#display').html('');
-	$('#buttons').html('');
-
-	//get form input
-	q = $('#newMovieInput').val();
+	//clear button-bar
+	$('#buttons-bar').html('');
 
 	//run GET request on API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
-			q: q,
+			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
+			q: q + "movie bloopers",
+			//insert the pageToken into the query
 			pageToken: token,
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
+				//set the nextPageToken retrieved from youtube to the variable nextPageToken
 				var nextPageToken = data.nextPageToken;
+				//set the prevPageToken retrieved from youtube to the variable prevPageToken
 				var prevPageToken = data.prevPageToken;
 
 				//log data
 				console.log(data);
 
 				$.each(data.items, function(i, item){
+
 					//Get output
 					var output = getOutput(item);
 
-					//Display results
+					//append the output variable, which is the result of the getOutput function, to the display div
 					$('#display').append(output);
 
 				})
 
+				//get the result of the getButtons function and set it to the variable buttons
 				var buttons = getButtons(prevPageToken, nextPageToken);
 
-				//display buttons
-				$('#display').append(buttons);
+				//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
+				$('#buttons-bar').append(buttons);
 			}
 	);
-}
+};
 	
-//Build Output
+//Build Output for videos
 function getOutput(item){
 	var videoId = item.id.videoId;
 	var title = item.snippet.title;
@@ -197,25 +222,21 @@ function getOutput(item){
 	'';
 
 	return output;
-}
+};
 
 
-// Build the buttons
+// Build the nextPage and prevPage buttons
 function getButtons(prevPageToken, nextPageToken){
 	if(!prevPageToken){
 		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
-						'onclick="nextPage();">Next Page</button></div>';	
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';	
 	} else {
 		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'"data-query"'+q+'"'+
-						'onclick="prevPage();">Prev Page</button></div>'+
-						'<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'"data-query"'+q+'"'+
-						'onclick="nextPage();">Next Page</button></div>';
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">Prev Page</button>'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page</button></div>';
 					}
 	return btnoutput;
-}
+};
 
 // METHODS
 // ==========================================================
@@ -239,9 +260,12 @@ $("#run-search").on("click", function(event) {
 	// create div to hold the text and clear button
 	var recentSearch = $('<div class="col-md-2"></div>');
 
+	//give every recent search its own unique id
 	recentSearch.attr("id", "recent-" + recentCount);
+	//append it to the recentSearch div
 	recentSearch.append("" + searchTerm);
 
+	//create a recentsearch close button
 	var recentClose = $("<button>");
 
 	recentClose.attr("recent-search", recentCount);
@@ -262,10 +286,12 @@ $("#run-search").on("click", function(event) {
 	// Clear the textbox when done
 	$('#newMovieInput').val("");
 
+	// add 1 to recent count 
 	recentCount++;
 	
 });
 
+// remove the recent search when the close out button is clicked
 $(document.body).on("click", ".checkbox", function(){
 
 	var recentNumber = $(this).attr("recent-search");

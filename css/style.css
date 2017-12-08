@@ -99,6 +99,7 @@ h2 {
 .list-left{
 	float:left;
 	width:20%;
+	overflow: auto;
 }
 
 .list-left img{
@@ -111,6 +112,7 @@ h2 {
 	margin-right: 10px;
 	float:right;
 	width:78%;
+	overflow: auto;
 }
 
 .cTitle{
