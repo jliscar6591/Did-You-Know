@@ -12,11 +12,40 @@ function runQuery(queryURL) {
 		//clear button bar
 		$('#buttons-bar').html('');
 
+		var boxOffice = response.BoxOffice;
+
+		//if else statement for no box office data
+		if (!boxOffice){
+			// Creating a div to hold the facts
+          var factsDiv = $("<div class='col-md-12 facts'>");
+
+          //storing the text in a variable
+          var DYK = $("<u><p>").text("Did You Know??");
+
+          // giving the p element in id of DYK
+          DYK.attr("id", DYK);
+
+          //apend the text to the factsDiv
+          factsDiv.append(DYK);
+
+          // Storing the awrds
+          var awards = response.Awards;
+
+          // Creating an element to hold the awards
+          var pTwo = $("<p>").text("Awards: " + awards);
+
+          // Displaying the release year
+          factsDiv.append(pTwo);
+
+          // Putting the entire facts above the previous movies
+          $("#displayfacts").append(factsDiv);
+
+		} else {
 		// Creating a div to hold the facts
           var factsDiv = $("<div class='col-md-12 facts'>");
 
           //storing the text in a variable
-          var DYK = $("<p>").text("Did You Know??");
+          var DYK = $("<u><p>").text("Did You Know??");
 
           // giving the p element in id of DYK
           DYK.attr("id", DYK);
@@ -44,6 +73,7 @@ function runQuery(queryURL) {
 
           // Putting the entire facts above the previous movies
           $("#displayfacts").append(factsDiv);
+        }
 
 	});
 
@@ -65,7 +95,7 @@ function search(){
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
 			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
-			q: q + "movie bloopers",
+			q: q + "bloopers",
 			type: 'video',
 			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
 			function(data){
@@ -114,7 +144,7 @@ function nextPage() {
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
 			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
-			q: q + "movie bloopers",
+			q: q + "bloopers",
 			//insert the pageToken into the query
 			pageToken: token,
 			type: 'video',
@@ -165,7 +195,7 @@ function prevPage() {
 		"https://www.googleapis.com/youtube/v3/search",{
 			part: 'snippet, id',
 			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
-			q: q + "movie bloopers",
+			q: q + "bloopers",
 			//insert the pageToken into the query
 			pageToken: token,
 			type: 'video',
@@ -345,4 +375,41 @@ $(document.body).on("click", ".checkbox", function(){
 		//run the GET from youtube api
 		search();
 
-		});
+		// giving the next-button the data-token attribute and setting it the variable token so it can be inserted into the query
+	var token = $('#next-button').data('token');
+	//giving the next-button the data query attribute and setting it the variable q so it can be inserted into the query
+	var q = $('#next-button').data('query');
+
+		$.get(
+		"https://www.googleapis.com/youtube/v3/search",{
+			part: 'snippet, id',
+			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
+			q: q + "bloopers",
+			pageToken: token,
+			type: 'video',
+			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
+			function(data){
+				var nextPageToken = data.nextPageToken;
+				var prevPageToken = data.prevPageToken;
+
+		if(!prevPageToken){
+		var btnoutput = '<div class="button-container">'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';	
+		} else {
+		var btnoutput = '<div class="button-container">'+
+						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">&larr; Prev Page</button>'+
+						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';
+					}
+		return btnoutput;
+
+		//get the result of the getButtons function and set it to the variable buttons
+		var buttons = getButtons(prevPageToken, nextPageToken);
+
+		//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
+		$('#buttons-bar').append(buttons);
+		
+
+			}
+		);
+
+});
