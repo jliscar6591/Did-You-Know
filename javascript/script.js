@@ -77,7 +77,7 @@ function runQuery(queryURL) {
 
 	});
 
-};
+}
 
 //runs the query for youtube
 function search(){
@@ -124,7 +124,7 @@ function search(){
 				$('#buttons-bar').append(buttons);
 			}
 	);
-};
+}
 
 //Next page function
 function nextPage() {
@@ -175,7 +175,7 @@ function nextPage() {
 				$('#buttons-bar').append(buttons);
 			}
 	);
-};
+}
 
 //Prev page function
 function prevPage() {
@@ -226,8 +226,8 @@ function prevPage() {
 				$('#buttons-bar').append(buttons);
 			}
 	);
-};
-	
+}
+
 //Build Output for videos
 function getOutput(item){
 	var videoId = item.id.videoId;
@@ -243,7 +243,7 @@ function getOutput(item){
 	'<img src="'+thumb+'">' +
 	'</div>' +
 	'<div class="list-right">' +
-	'<h3><a class="fancybox fancybox.iframe" href="http://www.youtube.com/embed/'+videoId+'">'+title+'</a></h3>'+
+	'<h3><a class="fancybox fancybox.iframe" href="https://www.youtube.com/embed/'+videoId+'">'+title+'</a></h3>'+
 	'<small>By <span class="cTitle">'+channelTitle+'</span on '+videoDate+'</small>' +
 	'<p>'+description+'</p>'+
 	'</div>'+
@@ -252,7 +252,7 @@ function getOutput(item){
 	'';
 
 	return output;
-};
+}
 
 
 // Build the nextPage and prevPage buttons
@@ -375,41 +375,5 @@ $(document.body).on("click", ".checkbox", function(){
 		//run the GET from youtube api
 		search();
 
-		// giving the next-button the data-token attribute and setting it the variable token so it can be inserted into the query
-	var token = $('#next-button').data('token');
-	//giving the next-button the data query attribute and setting it the variable q so it can be inserted into the query
-	var q = $('#next-button').data('query');
-
-		$.get(
-		"https://www.googleapis.com/youtube/v3/search",{
-			part: 'snippet, id',
-			// concatenate the q variable with movie bloopers so the search will add movie bloopers to the value entered in the search bar
-			q: q + "bloopers",
-			pageToken: token,
-			type: 'video',
-			key: 'AIzaSyDUpVML5L2NgWnB9BRdCcsayZu-i8j5eHo'},
-			function(data){
-				var nextPageToken = data.nextPageToken;
-				var prevPageToken = data.prevPageToken;
-
-		if(!prevPageToken){
-		var btnoutput = '<div class="button-container">'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';	
-		} else {
-		var btnoutput = '<div class="button-container">'+
-						'<button id="prev-button" class="paging-button" data-token="'+prevPageToken+'" data-query="'+q+'" onclick="prevPage()">&larr; Prev Page</button>'+
-						'<button id="next-button" class="paging-button" data-token="'+nextPageToken+'" data-query="'+q+'" onclick="nextPage()">Next Page &rarr;</button></div>';
-					}
-		return btnoutput;
-
-		//get the result of the getButtons function and set it to the variable buttons
-		var buttons = getButtons(prevPageToken, nextPageToken);
-
-		//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
-		$('#buttons-bar').append(buttons);
 		
-
-			}
-		);
-
 });
