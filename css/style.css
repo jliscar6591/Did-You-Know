@@ -11,10 +11,10 @@ background-image: url("https://wallpaperscraft.com/image/popcorn_corn_box_scatte
 
     /* Center and scale the image nicely */
     background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    position:relative;
-}	
+ }	
 
 
 /*Display for the movie populating
@@ -231,9 +231,14 @@ button, optgroup{
 }
 
 footer{
-   	width: 100%;
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	height:30px;
+   	width:100%;
+   	background:#000;
    	text-align: center;
-   	font-size: 20px;
-	color: white;
-	font-family: "gordita",Helvetica,sans-serif;
+   	font-size: 25px;
+   	color: white;
+   	font-family: "gordita",Helvetica,sans-serif;
 }
