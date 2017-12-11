@@ -122,8 +122,9 @@ function search(){
 
 				//append the buttons variable, which is the result of the getButtons function, to the buttons-bar div
 				$('#buttons-bar').append(buttons);
-			}
-	);
+
+				}
+			);
 }
 
 //Next page function
