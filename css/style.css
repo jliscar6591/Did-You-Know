@@ -8,6 +8,7 @@ background-image: url("https://wallpaperscraft.com/image/popcorn_corn_box_scatte
     background-image: url("../images/movie-theatre.jpg");
 
     /* Full height */
+    height: 100%; 
 
     /* Center and scale the image nicely */
     background-position: center;

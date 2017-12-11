@@ -346,7 +346,9 @@ $("#run-search").on("click", function(event) {
 });
 
 // remove the recent search when the close out button is clicked
-$(document.body).on("click", ".checkbox", function(){
+$(document.body).on("click", ".checkbox", function(event){
+
+	event.preventDefault();
 
 	var recentNumber = $(this).attr("recent-search");
 
@@ -354,7 +356,9 @@ $(document.body).on("click", ".checkbox", function(){
 });
 
 
-	$(document.body).on("click",".recentSearchBtn", function(){
+	$(document.body).on("click",".recentSearchBtn", function(event){
+
+		event.preventDefault();
 
 		var text = $(this).text();
 
@@ -371,7 +375,7 @@ $(document.body).on("click", ".checkbox", function(){
 
 		//run the ajax query from omdb
 		runQuery(queryURL);
-		
+
 		//run the GET from youtube api
 		search();
 
