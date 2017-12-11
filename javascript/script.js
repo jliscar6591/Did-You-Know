@@ -2,15 +2,16 @@
 //runs the omdb api query
 function runQuery(queryURL) {
 	
+	//clear facts
+		$('#displayfacts').html('');
+		//clear button bar
+		$('#buttons-bar').html('');
+	
 	$.ajax({
 		url: queryURL, 
 		method: 'GET'
 	}).done(function(response){
 		console.log(response);
-		//clear facts
-		$('#displayfacts').html('');
-		//clear button bar
-		$('#buttons-bar').html('');
 
 		var boxOffice = response.BoxOffice;
 
@@ -380,5 +381,7 @@ $(document.body).on("click", ".checkbox", function(event){
 		//run the GET from youtube api
 		search();
 
+		// Clear the textbox when done
+		$('#newMovieInput').val("");
 		
 });
