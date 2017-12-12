@@ -9,9 +9,6 @@ Team DYK Team members 
 John Liscar, MubinAkhawala, Scott Hunter, Taylor Hampton 
 
 
-
-Got DYK ?
-
 DYK is the ultimate for movies lovers who love to laugh. The DYK app  brings together all the best in movie bloopers ,  gag reels and fast facts for your favorite flicks all in one place.
 
 
