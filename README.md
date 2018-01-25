@@ -14,26 +14,3 @@ APIs to be used 
 OMBD API
 Youtube API
 
-
-Rough Breakdown of Tasks.
-
-Create User Story
-Pseudo Code Work 
-
-
-Front End 
-
-Html and Bootstrapping the design
-Search fields and forms
-
-Backend 
-
-Create functions to call APIs for videos and fast fact data.
-
-Adding click events for the user 
- 
-Appending response data to divs to display data.
-
-Rough Sketch Image 
-
-Sketch Image folder on main Repo
