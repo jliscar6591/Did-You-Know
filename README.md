@@ -1,20 +1,13 @@
-# Did-You-Know
-An application to fuel your behind the scenes and gag reel knowledge about your favorite movies
+# Outtakes
+
+## Team Outtakes Team members 
+
+John Liscar, Mubin Akhawala, Scott Hunter, Taylor Hampton 
 
 
-DYK- ???Did You Know?? App
+Outtakes is the ultimate for blooper lovers who love to laugh. Outtakes brings together all the best in bloopers, gag reels and fast facts for your favorite movies, tv shows, concerts, etc. all in one place.
 
-Team DYK Team members 
-
-John Liscar, MubinAkhawala, Scott Hunter, Taylor Hampton 
-
-
-DYK is the ultimate for movies lovers who love to laugh. The DYK app  brings together all the best in movie bloopers ,  gag reels and fast facts for your favorite flicks all in one place.
-
-
-You’ll laugh for hours watching gag reels from the top movies in Hollywood.
-
- Love movie trivia? DYK will test your movie chops putting you in the know of on hidden  little known facts about your movies.
+Love movie trivia? Outtakes will test your movie chops putting you in the know of on hidden/little known facts about your movies.
 
 
 APIs to be used 
